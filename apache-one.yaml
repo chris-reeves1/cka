@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-one
+  namespace: accounting
+  labels:
+    system: three
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      system: three
+  template:
+    metadata:
+      labels:
+        system: three
+    spec:
+      containers:
+        - name: apache
+          image: httpd
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-two
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-two
+  template:
+    metadata:
+      labels:
+        app: web-two
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-two-service
+spec:
+  type: ClusterIP
+  selector:
+    app: web-two
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

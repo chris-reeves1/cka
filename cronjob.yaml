@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob #<-- Update this line to CronJob
+metadata:
+  name: sleepy
+spec:
+  schedule: "*/2 * * * *" #<-- Add Linux style cronjob syntax
+  jobTemplate: #<-- New jobTemplate and spec move
+    spec:
+      template: #<-- This and following lines move
+        spec: #<-- four spaces to the right
+          activeDeadlineSeconds: 10
+          containers:
+            - name: resting
+              image: busybox
+              command: ["/bin/sleep"]
+              args: ["5"]
+          restartPolicy: Never
